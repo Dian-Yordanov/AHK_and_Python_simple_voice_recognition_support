@@ -6,11 +6,15 @@ __pycache__/
 # Ignore a specific JSON file
 certificates.json
 
+python_location.txt
+python_output_2.txt
+
 # C extensions
 *.so
 
 # Ignore virtual environment directory
 venv/
+__pycache__/
 
 # Distribution / packaging
 .Python
