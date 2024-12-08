@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Ignore a specific JSON file
+certificates.json
+
 # C extensions
 *.so
 
