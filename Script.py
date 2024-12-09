@@ -176,31 +176,23 @@ if __name__ == "__main__":
     result = coordinate_NLP_results(Select=False)
     print("result: ", result)  
 
-
-    # Print the number of arguments
-    # print(f"Number of arguments: {len(sys.argv)}")
-
-    # Print the list of arguments
-
     if len(sys.argv) > 1:
-        print("Argument List:", sys.argv)
 
-    # Get the directory of the currently running script
-    current_script_dir = os.path.dirname(os.path.abspath(__file__))
+        if sys.argv[1].endswith(('.ahk')):
+            print(f"The file '{sys.argv[1]}' ends with .ahk")
 
-    # Print the directory
-    # print("Current Script Directory:", current_script_dir)
-    current_script_dir += "\\args_test.ahk"
+            current_script_dir = os.path.dirname(os.path.abspath(__file__)) + "\\" + sys.argv[1]
+            command = ["C:\\Program Files\\AutoHotkey\\AutoHotkey.exe", current_script_dir] + result
+            subprocess.run(command)
 
-    # Define the path to the AHK script
-    # ahk_script_path = "C:\\path\\to\\example.ahk"
+        elif sys.argv[1].endswith(('.py')):
+            print(f"The file '{sys.argv[1]}' ends with .py")
 
-    # Define the arguments to pass
-    # args = ["Hello", "World", "123"]
+            current_script_dir = os.path.dirname(os.path.abspath(__file__)) + "\\" + sys.argv[1]
+            subprocess.run(["python", current_script_dir])
 
-    # Construct the command to run the AHK script with arguments
-    command = ["C:\\Program Files\\AutoHotkey\\AutoHotkey.exe", current_script_dir] + result
+        else:
+            print(f"The file '{sys.argv[1]}' does not end with .ahk or .py")
 
-    # Run the AHK script with arguments
-    subprocess.run(command)
+        # print("Argument List:", sys.argv[1])
 
