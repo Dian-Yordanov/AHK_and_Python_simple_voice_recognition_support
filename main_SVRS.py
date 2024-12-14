@@ -79,12 +79,6 @@ def recognize_speech(device_index, duration=5):
     # List all available microphone devices
     mic_list = sr.Microphone.list_microphone_names()
 
-    # Print the list of microphones
-    # print("Available microphone devices:")
-    # for i, microphone_name in enumerate(mic_list):
-    #     print(f"{i}: {microphone_name}")
-
-    # Assuming you're using the default microphone (index 0)
     recognizer = sr.Recognizer()
     microphone = sr.Microphone(device_index)
 
@@ -134,21 +128,7 @@ def recognize_speech(device_index, duration=5):
     except sr.RequestError as e:
         print("Error: " + str(e))        
 
-    # print(answers_list)
-
     return answers_list
-
-    # print("recognize_google thinks you said: " + google_output)
-    # print("recognize_houndify thinks you said: " + str(houndify_output) )
-    # print("recognize_wit thinks you said: " + wit_output)    
-
-    # try:
-    #     text = recognizer.recognize_sphinx(audio)
-    #     print("recognize_sphinx thinks you said: " + text)
-    # except sr.UnknownValueError:
-    #     print("recognize_sphinx could not understand audio")
-    # except sr.RequestError as e:
-    #     print("Error: " + str(e))
 
 def coordinate_NLP_results(Select=False):
     device_index = select_device(Select=False)
@@ -181,18 +161,15 @@ if __name__ == "__main__":
         if sys.argv[1].endswith(('.ahk')):
             print(f"The file '{sys.argv[1]}' ends with .ahk")
 
-            current_script_dir = os.path.dirname(os.path.abspath(__file__)) + "\\" + sys.argv[1]
+            current_script_dir = os.path.dirname(os.path.abspath(__file__)) + "\\AHK\\" + sys.argv[1]
             command = ["C:\\Program Files\\AutoHotkey\\AutoHotkey.exe", current_script_dir] + result
             subprocess.run(command)
 
         elif sys.argv[1].endswith(('.py')):
             print(f"The file '{sys.argv[1]}' ends with .py")
 
-            current_script_dir = os.path.dirname(os.path.abspath(__file__)) + "\\" + sys.argv[1]
-            subprocess.run(["python", current_script_dir])
+            current_script_dir = os.path.dirname(os.path.abspath(__file__)) + "\\Python\\" + sys.argv[1]
+            subprocess.run(["python", current_script_dir, result[0], result[1]])
 
         else:
             print(f"The file '{sys.argv[1]}' does not end with .ahk or .py")
-
-        # print("Argument List:", sys.argv[1])
-
