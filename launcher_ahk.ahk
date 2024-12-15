@@ -13,9 +13,9 @@ first_element_array = % array[1]
 
 ; Define the path to the Python executable and the script
 pythonPath := % first_element_array
-scriptPath = %A_ScriptDir%\Script.py
+scriptPath = %A_ScriptDir%\main_SVRS.py
 
-self_venv = %A_ScriptDir%\self_venv.py
+self_venv = %A_ScriptDir%\launcher_python.py
 
 venvPath = %A_ScriptDir%\venv\Scripts\activate.bat
 
