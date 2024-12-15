@@ -4,7 +4,7 @@ import subprocess
 
 def activate_venv():
     # Define the script to run within the virtual environment
-    script_to_run = "main_SVRS.py args_test_python.py"
+    script_to_run = "main_SVRS.py args_test_ahk.ahk"
 
     # Determine the platform-specific activation command
     if os.name == 'nt':  # Windows
@@ -16,6 +16,8 @@ def activate_venv():
 
     # Wait for the process to complete
     process.wait()
+
+    subprocess.run(["taskkill", "/F", "/IM", "cmd.exe"])
 
 if __name__ == "__main__":
     activate_venv()
