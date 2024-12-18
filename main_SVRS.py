@@ -4,6 +4,8 @@ import json
 import sys
 import subprocess
 import os
+import time
+import threading
 
 if __name__ == '__main__':
     from consensus import consensus_sentence
@@ -73,7 +75,15 @@ def select_device(Select=False):
 
     return device_index
 
-def recognize_speech(device_index, duration=5):
+def countdown_timer(seconds):
+    while seconds:
+        mins, secs = divmod(seconds, 60)
+        timer_format = '{:02d}:{:02d}'.format(mins, secs)
+        print(timer_format, end='\r')
+        time.sleep(1)
+        seconds -= 1
+
+def recognize_speech(device_index, duration):
     recognizer = sr.Recognizer()
 
     # List all available microphone devices
@@ -91,9 +101,15 @@ def recognize_speech(device_index, duration=5):
   
     with sr.Microphone(device_index=device_index, sample_rate=32000) as source:
 
-        print("Listening for {} seconds...".format(duration))
-        audio = recognizer.listen(source, timeout=duration)
+        thread = threading.Thread(target=countdown_timer, args=(duration,))
 
+        print("Listening for a maximum of {} seconds...".format(duration), duration)        
+        # thread.start()
+        audio = recognizer.listen(source, phrase_time_limit=50)
+        print("Ready")
+        # thread.join()
+       
+    
     google_output = ""
     houndify_output = ""
     wit_output = ""
@@ -130,10 +146,10 @@ def recognize_speech(device_index, duration=5):
 
     return answers_list
 
-def coordinate_NLP_results(Select=False):
+def coordinate_NLP_results(Select, duration):
     device_index = select_device(Select=False)
 
-    result = recognize_speech(device_index)
+    result = recognize_speech(device_index, duration)
     # print("no consensus: ", result)  
     print(30 * '-')
 
@@ -153,7 +169,18 @@ def coordinate_NLP_results(Select=False):
         return ["0", end_result_Levenshtein_distance_algorithm]
 
 if __name__ == "__main__": 
-    result = coordinate_NLP_results(Select=False)
+    arg_is_int = True
+    try:
+        arg_to_int = int(sys.argv[1])
+    except ValueError as e:
+        arg_is_int = False 
+    
+    if len(sys.argv) > 2:
+        result = coordinate_NLP_results(Select=False, duration = sys.argv[2])
+    elif len(sys.argv) == 2 and arg_is_int:
+        result = coordinate_NLP_results(Select=False, duration = arg_to_int)         
+    else:
+        result = coordinate_NLP_results(Select=False, duration=10)    
     print("result: ", result)  
 
     if len(sys.argv) > 1:
