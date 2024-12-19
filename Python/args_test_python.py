@@ -19,8 +19,9 @@ def is_half_sentence_present(sentence, text):
 
     return first_half_present or second_half_present
 
-def check_if_phrase_is_whole_or_contained(test_case, test_func):
+def check_if_phrase_is_whole_or_contained(test_case, test_func, use_consensus_boolean):
     continue_boolean = False
+    consensus_boolean = False
     if(sys.argv[1] == "1"):
         continue_boolean = True    
     else:
@@ -31,8 +32,19 @@ def check_if_phrase_is_whole_or_contained(test_case, test_func):
         else:
             print("Condition is NOT met")
 
-    if continue_boolean:
-        test_func(message, test_case)
+    if message == test_case:
+        consensus_boolean = True
+        # messagebox.showinfo("Message Box Title", "condition is met exactly  " + message)
+    else:
+        consensus_boolean = False
+        # messagebox.showinfo("Message Box Title", "condition is PARTLY met  " + message)
+
+    if use_consensus_boolean:
+        if continue_boolean and consensus_boolean:
+            test_func(message, test_case)
+    else:
+        if continue_boolean:
+            test_func(message, test_case)
 
     return continue_boolean
 
@@ -46,6 +58,6 @@ def test_func2(message, test_case):
     messagebox.showinfo("Message Box Title", "++++++++" + message)
 
 test_case = "press space"
-check_if_phrase_is_whole_or_contained(test_case, test_func)
+check_if_phrase_is_whole_or_contained(test_case, test_func2, False)
 
 root.destroy()

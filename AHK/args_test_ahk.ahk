@@ -20,8 +20,9 @@ test_func(message, test_case) {
     MsgBox, "++++++++" + %message%
 }
 
-check_if_phrase_is_whole_or_contained(test_case, func){
+check_if_phrase_is_whole_or_contained(test_case, func, use_consensus_boolean){
     global arg_string
+    consensus_boolean = False
     if (A_Args.Length() = 0)
         {
             MsgBox, "Condition is NOT met"
@@ -31,6 +32,7 @@ check_if_phrase_is_whole_or_contained(test_case, func){
         if (A_Args[2] = test_case)
         {
             continue_boolean = True
+            consensus_boolean = True
             MsgBox, "condition is met exactly" + %arg_string%
         }
         else
@@ -40,19 +42,27 @@ check_if_phrase_is_whole_or_contained(test_case, func){
             if (result)
             {
                 continue_boolean = True
+                consensus_boolean = False
                 MsgBox, condition is PARTLY met + %arg_string%
             }
             else
             {
+                consensus_boolean = False
                 MsgBox, Condition is NOT met + %arg_string%
             }
         }
     }
 
-    if(continue_boolean){
-        return %func%(arg_string, test_case) 
+    if(use_consensus_boolean) {
+        if(continue_boolean and consensus_boolean){
+            return %func%(arg_string, test_case) 
+        }
     }
-
+    else {
+        if(continue_boolean){
+            return %func%(arg_string, test_case) 
+        }
+    }
 }
 
-check_if_phrase_is_whole_or_contained(test_case, "test_func")
+check_if_phrase_is_whole_or_contained(test_case, "test_func", False)
