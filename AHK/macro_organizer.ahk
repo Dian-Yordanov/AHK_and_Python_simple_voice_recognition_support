@@ -30,12 +30,12 @@ launch_function_matching_whole_or_part_of_hotstring(test_case, func, use_consens
         if (A_Args[1] == "1" and message == test_case) {
             continue_boolean := True  
             consensus_boolean := True
-            MsgBox, Condition is fully met and agreed upon
+            ; MsgBox, Condition is fully met and agreed upon
         } 
         else if (A_Args[1] == "1" and result) {        
             if not use_consensus_boolean {
                 continue_boolean := True  
-                MsgBox, Condition is agreed upon but partially met
+                ; MsgBox, Condition is agreed upon but partially met
             }
         } 
         else if (A_Args[1] == "1" and not result) {        
@@ -50,7 +50,7 @@ launch_function_matching_whole_or_part_of_hotstring(test_case, func, use_consens
                     else {
                         consensus_boolean := True
                         continue_boolean := True
-                        MsgBox, Condition is partially met but agreed upon
+                        ; MsgBox, Condition is partially met but agreed upon
                     }
                 } 
             } 
@@ -81,5 +81,5 @@ test_func(message, test_case) {
 
 test_case := "press space"
 
-launch_function_matching_whole_or_part_of_hotstring(test_case, "test_func", false)
+launch_function_matching_whole_or_part_of_hotstring("press space", "test_func", false)
 launch_function_matching_whole_or_part_of_hotstring(test_case, "test_func", true)
