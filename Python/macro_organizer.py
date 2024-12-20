@@ -9,18 +9,6 @@ root.withdraw()  # Hide the main window
 
 message = sys.argv[2]
 
-# def is_half_sentence_present(sentence, text):
-#     # Split the sentence into two halves
-#     half_length = len(sentence) // 2
-#     first_half = sentence[:half_length]
-#     second_half = sentence[half_length:]
-
-#     # Check if either half is present in the text
-#     first_half_present = first_half in text
-#     second_half_present = second_half in text
-
-#     return first_half_present or second_half_present
-
 def is_half_sentence_present(sentence, text):
     # Split the sentence into words
     words = sentence.split()
@@ -39,21 +27,12 @@ def is_half_sentence_present(sentence, text):
 def launch_function_matching_whole_or_part_of_hotstring(test_case, test_func, use_consensus_boolean):
     continue_boolean = False
     consensus_boolean = False
-
-    # if message == test_case:
-    #     continue_boolean = True
-    # else:
-    #     continue_boolean = False
-
     result = is_half_sentence_present(test_case, message)
-    # print("result", result)
-
+    
     if(sys.argv[1] == "1" and message == test_case):
         continue_boolean = True  
         consensus_boolean = True
         print("Condition is fully met and agreed upon") 
-        # if  consensus_boolean:
-        #     print("Condition is not correct but the algorithsm agree upon its validity")     
     elif(sys.argv[1] == "1" and result):        
         if not use_consensus_boolean:
             continue_boolean = True  
@@ -64,7 +43,6 @@ def launch_function_matching_whole_or_part_of_hotstring(test_case, test_func, us
         if(message == test_case or result):
             if result:
                 if use_consensus_boolean:
-                    # continue_boolean = True
                     print("Condition is fully met but not agreed upon")
                 else:
                     consensus_boolean = True
@@ -82,8 +60,6 @@ def launch_function_matching_whole_or_part_of_hotstring(test_case, test_func, us
         if continue_boolean:
             test_func(message, test_case)
 
-    # return continue_boolean
-
 def test_func(message, test_case):
     if message == test_case:
         messagebox.showinfo("Message Box Title", "condition is met exactly  " + message)
@@ -100,9 +76,6 @@ def test_func3():
 launch_function_matching_whole_or_part_of_hotstring("press space", test_func2, False)
 launch_function_matching_whole_or_part_of_hotstring("press space", test_func2, True)
 
-
-# current_script_dir = os.path.dirname(os.path.abspath(__file__)) + "\\macro_organizer.py"
-# subprocess.run(["python", current_script_dir, sys.argv[0], sys.argv[1], sys.argv[2]])
 
 
 root.destroy()
