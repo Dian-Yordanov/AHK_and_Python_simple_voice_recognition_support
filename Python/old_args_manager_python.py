@@ -1,4 +1,6 @@
 import sys
+import subprocess
+import os
 import tkinter as tk
 from tkinter import messagebox
 
@@ -57,7 +59,16 @@ def test_func(message, test_case):
 def test_func2(message, test_case):
     messagebox.showinfo("Message Box Title", "++++++++" + message)
 
-test_case = "press space"
-check_if_phrase_is_whole_or_contained(test_case, test_func2, False)
+def test_func3():
+    print("ttt")
+
+
+# test_case = "press space"
+# check_if_phrase_is_whole_or_contained(test_case, test_func2, False)
+
+
+# current_script_dir = os.path.dirname(os.path.abspath(__file__)) + "\\macro_organizer.py"
+# subprocess.run(["python", current_script_dir, sys.argv[0], sys.argv[1], sys.argv[2]])
+
 
 root.destroy()

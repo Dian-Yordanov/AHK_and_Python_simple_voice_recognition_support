@@ -186,17 +186,19 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
 
         if sys.argv[1].endswith(('.ahk')):
-            print(f"The file '{sys.argv[1]}' ends with .ahk")
+            # print(f"The file '{sys.argv[1]}' ends with .ahk")
 
             current_script_dir = os.path.dirname(os.path.abspath(__file__)) + "\\AHK\\" + sys.argv[1]
             command = ["C:\\Program Files\\AutoHotkey\\AutoHotkey.exe", current_script_dir] + result
             subprocess.run(command)
 
         elif sys.argv[1].endswith(('.py')):
-            print(f"The file '{sys.argv[1]}' ends with .py")
+            # print(f"The file '{sys.argv[1]}' ends with .py")
 
             current_script_dir = os.path.dirname(os.path.abspath(__file__)) + "\\Python\\" + sys.argv[1]
-            subprocess.run(["python", current_script_dir, result[0], result[1]])
+            algorithms_agreement = result[0]
+            agreed_upon_sentense = result[1]
+            subprocess.run(["python", current_script_dir, algorithms_agreement, agreed_upon_sentense])
 
         else:
             print(f"The file '{sys.argv[1]}' does not end with .ahk or .py")
